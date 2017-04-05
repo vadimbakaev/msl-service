@@ -52,7 +52,11 @@ class AirQualityRetrieverImpl @Inject()(
                 .filter(_.isDefined)
                 .map(_.get)
                 .map(indexDocument => {
-                  indexDocumentService.save(indexDocument)
+                  indexDocumentService.save(indexDocument).recoverWith {
+                    case t =>
+                      Logger.error("Failed to save document", t)
+                      Future.failed(t)
+                  }
 
                   indexDocument
                 })

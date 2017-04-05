@@ -12,6 +12,6 @@ libraryDependencies ++= Seq(
   ws,
   "org.scalatestplus.play" %% "scalatestplus-play"  % "1.5.1" % Test,
   "com.github.etaty"       %% "rediscala"           % "1.7.0",
-  "org.reactivemongo"      %% "play2-reactivemongo" % "0.12.0"
+  "org.mongodb.scala"      %% "mongo-scala-driver"  % "2.0.0"
 )
 

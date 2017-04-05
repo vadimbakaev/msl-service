@@ -2,7 +2,7 @@ package services
 
 import com.google.inject.ImplementedBy
 import models.AirIndexDocument
-import reactivemongo.api.commands.WriteResult
+import org.mongodb.scala.Completed
 
 import scala.concurrent.Future
 
@@ -12,6 +12,6 @@ import scala.concurrent.Future
 @ImplementedBy(classOf[AirIndexDocumentServiceImpl])
 trait AirIndexDocumentService {
 
-  def save(doc: AirIndexDocument): Future[WriteResult]
+  def save(doc: AirIndexDocument): Future[Completed]
 
 }
