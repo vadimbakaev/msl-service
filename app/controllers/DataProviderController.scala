@@ -23,7 +23,7 @@ class DataProviderController @Inject()(
 
     val day = LocalDate.now().minusDays(2)
 
-    airIndexDocumentService.getDocumentsAfterDate(day.toString).map(list => Ok(Json.toJson(list)))
+    airIndexDocumentService.getDocumentsAfterDate(day.toString).map(list => Ok(Json.toJson(list.filter(index => index.value > 0))))
 
   }
 
