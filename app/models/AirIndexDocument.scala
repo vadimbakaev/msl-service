@@ -30,7 +30,8 @@ case class AirIndexDocument(
 
 object AirIndexDocument {
 
-  implicit val indexDocumentFormat: OFormat[AirIndexDocument] = Json.format[AirIndexDocument]
+  implicit val airIndexDocumentFormat: OFormat[AirIndexDocument] = Json.format[AirIndexDocument]
+  implicit val airIndexDocumentWrites   : OWrites[AirIndexDocument] = Json.writes[AirIndexDocument]
 
   implicit val byteStringFormat = new ByteStringFormatter[AirIndexDocument] {
     def serialize(data: AirIndexDocument): ByteString =

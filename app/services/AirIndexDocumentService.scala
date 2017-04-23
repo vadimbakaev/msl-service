@@ -14,4 +14,6 @@ trait AirIndexDocumentService {
 
   def save(doc: AirIndexDocument): Future[Completed]
 
+  def getDocumentsAfterDate(date:String): Future[List[AirIndexDocument]]
+
 }

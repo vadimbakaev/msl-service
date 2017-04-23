@@ -2,5 +2,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-POST        /retrieve        controllers.RetrieveController.retrieve
-GET         /status          controllers.StatusController.status
+POST        /retrieve           controllers.RetrieveController.retrieve
+GET         /lastDaysAvg        controllers.DataProviderController.getLastDaysAvg
+GET         /status             controllers.StatusController.status

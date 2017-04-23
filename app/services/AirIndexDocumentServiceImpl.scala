@@ -9,13 +9,14 @@ import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistr
 import org.mongodb.scala.bson.codecs.DEFAULT_CODEC_REGISTRY
 import org.mongodb.scala.bson.codecs.Macros._
 import org.mongodb.scala.connection.ClusterSettings
-import org.mongodb.scala.model.{IndexOptions, Indexes}
+import org.mongodb.scala.model.{Filters, IndexOptions, Indexes}
 import org.mongodb.scala.{Completed, MongoClient, MongoClientSettings, MongoCollection, MongoCredential, MongoDatabase}
 import play.api.Configuration
 import services.AirIndexDocumentServiceImpl._
 
 import scala.collection.JavaConversions._
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * @author vadimbakaev
@@ -74,6 +75,22 @@ class AirIndexDocumentServiceImpl @Inject()(
       save(pM10Collection)(pM10)
     case _                                          =>
       Future.failed(new IllegalArgumentException("AirIndexDocument not matched for save"))
+  }
+
+  override def getDocumentsAfterDate(date: String): Future[List[AirIndexDocument]] = {
+
+    val query = Filters.gt(Date, date)
+
+    for {
+      nO2 <- nO2Collection.find[AirIndexDocument](query).toFuture()
+      sO2 <- sO2Collection.find[AirIndexDocument](query).toFuture()
+      o3 <- o3Collection.find[AirIndexDocument](query).toFuture()
+      cO <- cOCollection.find[AirIndexDocument](query).toFuture()
+      c6H6 <- c6H6Collection.find[AirIndexDocument](query).toFuture()
+      pM2_5 <- pM2_5Collection.find[AirIndexDocument](query).toFuture()
+      pM10 <- pM10Collection.find[AirIndexDocument](query).toFuture()
+    } yield List(nO2, sO2, o3, cO, c6H6, pM2_5, pM10).flatten
+
   }
 
   def save(collection: MongoCollection[AirIndexDocument])(doc: AirIndexDocument): Future[Completed] = {
